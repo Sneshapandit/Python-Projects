@@ -1,0 +1,45 @@
+import speech_recognition as sr
+from gtts import gTTS
+import playsound
+
+def speak(text):
+    tts = gTTS(text=text, lang='en')
+    tts.save('output.mp3')
+    playsound.playsound('output.mp3')
+
+def listen():
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("Say something:")
+        audio = recognizer.listen(source)
+
+    try:
+        print("You said: " + recognizer.recognize_google(audio))
+        return recognizer.recognize_google(audio)
+    except sr.UnknownValueError:
+        print("Sorry, could not understand audio.")
+        return None
+    except sr.RequestError as e:
+        print("Could not request results from Google Speech Recognition service; {0}".format(e))
+        return None
+
+if __name__ == "__main__":
+    speak("Hello! I am your simple voice assistant. How can I help you today?")
+
+    while True:
+        command = listen()
+
+        if command:
+            if "hello" in command.lower():
+                speak("Hello there!")
+
+            elif "how are you" in command.lower():
+                speak("I'm doing well, thank you!")
+
+            elif "bye" in command.lower():
+                speak("Goodbye! Have a great day.")
+                break
+
+            else:
+                speak("Sorry, I didn't understand that command. Can you please repeat?")
