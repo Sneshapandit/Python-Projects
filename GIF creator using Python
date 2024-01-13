@@ -1,0 +1,12 @@
+from PIL import Image, ImageDraw
+image_paths = ['image1.png', 'image2.png', 'image3.png']
+
+output_gif_path = 'output.gif'
+
+frames = []
+
+for path in image_paths:
+    img = Image.open(path)
+    frames.append(img)
+
+frames[0].save(output_gif_path, save_all=True, append_images=frames[1:], duration=500, loop=0)
