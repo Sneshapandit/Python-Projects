@@ -1,0 +1,17 @@
+def simple_chat_bot():
+    responses = {
+        "hello": "Hi there! How can I help you?",
+        "how are you": "I'm just a computer program, but thanks for asking!",
+        "bye": "Goodbye! Have a great day!",
+    }
+
+    while True:
+        user_input = input("You: ").lower()
+        if user_input == 'exit':
+            print("Goodbye!")
+            break
+
+        response = responses.get(user_input, "I'm sorry, I don't understand that.")
+        print("Bot:", response)
+
+simple_chat_bot()
